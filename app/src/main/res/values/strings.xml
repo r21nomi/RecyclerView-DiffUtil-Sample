@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RecyclerView-DiffUtil-Sample</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="sort_by_rating">Sort by rating</string>
+</resources>
