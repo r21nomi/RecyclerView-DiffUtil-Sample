@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             val newList = dataSet.apply {
                 this.add(latItemPosition, Anime(dataSet.size + 1, "ポプテピピック", 40))
             }
-            animeAdapter.swapOnBackgroundThread(newList)
+            animeAdapter.swapOnMainThread(newList)
         }
     }
 
@@ -62,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 })
+                true
+            }
+            R.id.removeFirstItem -> {
+                val newList = animeAdapter.dataSet.filterIndexed { index, anime ->
+                    index != 0
+                }
+                animeAdapter.swapOnMainThread(newList)
                 true
             }
             else -> super.onOptionsItemSelected(item)

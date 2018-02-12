@@ -1,21 +1,26 @@
 package com.r21nomi.recyclerview_diffutil_sample
 
 import android.support.v7.util.DiffUtil
+import android.util.Log
+import java.util.*
 
 class AnimeDiffCallback(
         private val oldList: List<Anime>,
-        private val newList: List<Anime>
+        private val newList: List<Anime>,
+        private val shouldEmulateHugeList: Boolean = false
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size
 
     override fun getNewListSize(): Int {
-        // Emulate huge process.
-//        try {
-//            Thread.sleep(Random().nextInt(3000).toLong())
-//        } catch (e: InterruptedException) {
-//            Log.e(this.javaClass.name, e.message)
-//        }
+        if (shouldEmulateHugeList) {
+            // Emulate huge process.
+            try {
+                Thread.sleep(Random().nextInt(3000).toLong())
+            } catch (e: InterruptedException) {
+                Log.e(this.javaClass.name, e.message)
+            }
+        }
         return newList.size
     }
 

@@ -13,4 +13,8 @@
         android:id="@+id/updateItem"
         android:title="@string/update_item" />
 
+    <item
+        android:id="@+id/removeFirstItem"
+        android:title="@string/remove_first_item" />
+
 </menu>

@@ -3,4 +3,5 @@
     <string name="sort_by_title">Sort by title</string>
     <string name="sort_by_rating">Sort by rating</string>
     <string name="update_item">Update item</string>
+    <string name="remove_first_item">Remove first item</string>
 </resources>

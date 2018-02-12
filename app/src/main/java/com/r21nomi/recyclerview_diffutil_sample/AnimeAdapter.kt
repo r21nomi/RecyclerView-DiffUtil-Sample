@@ -55,7 +55,7 @@ class AnimeAdapter(initialDataSet: MutableList<Anime>) : RecyclerView.Adapter<An
     fun swapOnBackgroundThread(animes: List<Anime>) {
         val handler = Handler()
         Thread({
-            val diffCallback = AnimeDiffCallback(this.dataSet, animes)
+            val diffCallback = AnimeDiffCallback(this.dataSet, animes, true)
             // Calculate diff in background thread.
             val diffResult = DiffUtil.calculateDiff(diffCallback, true)
 
