@@ -3,21 +3,33 @@ package com.r21nomi.recyclerview_diffutil_sample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val animeAdapter = AnimeAdapter(DataSetProvider.get())
+    private val animeAdapter = AnimeAdapter(DataSetProvider.get().toMutableList())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<RecyclerView>(R.id.recyclerView).run {
+        recyclerView.run {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = animeAdapter
+        }
+
+        fab.setOnClickListener {
+            Log.d(this.javaClass.name, "fab")
+            val lm: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val latItemPosition = lm.findLastVisibleItemPosition()
+            val dataSet = animeAdapter.dataSet.toMutableList()
+            val newList = dataSet.apply {
+                this.add(latItemPosition, Anime(dataSet.size + 1, "刻刻", 30))
+            }
+            animeAdapter.swapOnBackgroundThread(newList)
         }
     }
 
@@ -29,11 +41,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.sortByTitle -> {
-                animeAdapter.swap(DataSetProvider.sortByTitle(animeAdapter.dataSet))
+                animeAdapter.swapOnBackgroundThread(DataSetProvider.sortByTitle(animeAdapter.dataSet))
                 true
             }
             R.id.sortByRating -> {
-                animeAdapter.swap(DataSetProvider.sortByRating(animeAdapter.dataSet))
+                animeAdapter.swapOnBackgroundThread(DataSetProvider.sortByRating(animeAdapter.dataSet))
                 true
             }
             else -> super.onOptionsItemSelected(item)
