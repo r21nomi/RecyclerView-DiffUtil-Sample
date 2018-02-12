@@ -3,7 +3,6 @@ package com.r21nomi.recyclerview_diffutil_sample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,12 +21,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener {
-            Log.d(this.javaClass.name, "fab")
             val lm: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val latItemPosition = lm.findLastVisibleItemPosition()
             val dataSet = animeAdapter.dataSet.toMutableList()
             val newList = dataSet.apply {
-                this.add(latItemPosition, Anime(dataSet.size + 1, "刻刻", 30))
+                this.add(latItemPosition, Anime(dataSet.size + 1, "ポプテピピック", 40))
             }
             animeAdapter.swapOnBackgroundThread(newList)
         }

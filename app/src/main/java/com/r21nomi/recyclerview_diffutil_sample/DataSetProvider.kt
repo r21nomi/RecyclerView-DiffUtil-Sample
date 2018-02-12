@@ -11,7 +11,7 @@ object DataSetProvider {
             Anime(3, "ダーリン・イン・ザ・フランキス", 90),
             Anime(4, "BEATLESS", 30),
             Anime(5, "Fate/EXTRA Last Encore", 50),
-            Anime(6, "ポプテピピック", 40),
+            Anime(6, "刻刻", 30),
             Anime(7, "からかい上手の高木さん", 60),
             Anime(8, "ヴァイオレット・エヴァーガーデン", 90),
             Anime(9, "衛宮さんちの今日のごはん", 40),
