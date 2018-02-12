@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val lm: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val latItemPosition = lm.findLastVisibleItemPosition()
-            val dataSet = animeAdapter.dataSet.toMutableList()
+            val dataSet = animeAdapter.getDataSet().toMutableList()
             val newList = dataSet.apply {
                 this.add(latItemPosition, Anime(dataSet.size + 1, "ポプテピピック", 40))
             }
-            animeAdapter.swapOnMainThread(newList)
+            animeAdapter.updateOnMainThread(newList)
         }
     }
 
@@ -39,15 +39,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.sortByTitle -> {
-                animeAdapter.swapOnBackgroundThread(DataSetProvider.sortByTitle(animeAdapter.dataSet))
+                animeAdapter.updateOnBackgroundThread(DataSetProvider.sortByTitle(animeAdapter.getDataSet()))
                 true
             }
             R.id.sortByRating -> {
-                animeAdapter.swapOnBackgroundThread(DataSetProvider.sortByRating(animeAdapter.dataSet))
+                animeAdapter.updateOnBackgroundThread(DataSetProvider.sortByRating(animeAdapter.getDataSet()))
                 true
             }
             R.id.updateItem -> {
-                animeAdapter.swapOnBackgroundThread(animeAdapter.dataSet.map { anime ->
+                animeAdapter.updateOnBackgroundThread(animeAdapter.getDataSet().map { anime ->
                     if (anime.id == 1) {
                         Anime(
                                 anime.id,
@@ -65,10 +65,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.removeFirstItem -> {
-                val newList = animeAdapter.dataSet.filterIndexed { index, anime ->
-                    index != 0
+                val firstItemId = animeAdapter.getOriginalDataSet()[0].id
+                val newList = animeAdapter.getDataSet().filter { anime ->
+                    anime.id != firstItemId
                 }
-                animeAdapter.swapOnMainThread(newList)
+                animeAdapter.updateOnMainThread(newList)
                 true
             }
             else -> super.onOptionsItemSelected(item)
