@@ -24,6 +24,9 @@ class AnimeDiffCallback(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].title == newList[newItemPosition].title
+        val old = oldList[oldItemPosition]
+        val new = newList[newItemPosition]
+        val isSame = old == new
+        return isSame
     }
 }

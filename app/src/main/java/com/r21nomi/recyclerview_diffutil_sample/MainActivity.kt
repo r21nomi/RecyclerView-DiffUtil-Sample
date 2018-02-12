@@ -48,6 +48,24 @@ class MainActivity : AppCompatActivity() {
                 animeAdapter.swapOnBackgroundThread(DataSetProvider.sortByRating(animeAdapter.dataSet))
                 true
             }
+            R.id.updateItem -> {
+                animeAdapter.swapOnBackgroundThread(animeAdapter.dataSet.map { anime ->
+                    if (anime.id == 1) {
+                        Anime(
+                                anime.id,
+                                "citrus",
+                                45
+                        )
+                    } else {
+                        Anime(
+                                anime.id,
+                                anime.title,
+                                anime.rating
+                        )
+                    }
+                })
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
