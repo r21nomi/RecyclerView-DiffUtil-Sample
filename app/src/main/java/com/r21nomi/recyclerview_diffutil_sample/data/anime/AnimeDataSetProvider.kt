@@ -1,9 +1,11 @@
-package com.r21nomi.recyclerview_diffutil_sample
+package com.r21nomi.recyclerview_diffutil_sample.data.anime
+
+import com.r21nomi.recyclerview_diffutil_sample.data.anime.entity.Anime
 
 /**
  * Created by r21nomi on 2018/02/11.
  */
-object DataSetProvider {
+object AnimeDataSetProvider {
 
     private val dataSet: List<Anime> = listOf(
             Anime(1, "宇宙よりも遠い場所", 80),

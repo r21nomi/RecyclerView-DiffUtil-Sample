@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.r21nomi.recyclerview_diffutil_sample.App
 import com.r21nomi.recyclerview_diffutil_sample.R
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.RepoRepository
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_paging.*
 import kotlin.properties.Delegates
 
 /**

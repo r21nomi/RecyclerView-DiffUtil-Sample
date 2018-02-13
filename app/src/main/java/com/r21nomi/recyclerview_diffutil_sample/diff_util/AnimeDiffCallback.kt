@@ -1,7 +1,8 @@
-package com.r21nomi.recyclerview_diffutil_sample
+package com.r21nomi.recyclerview_diffutil_sample.diff_util
 
 import android.support.v7.util.DiffUtil
 import android.util.Log
+import com.r21nomi.recyclerview_diffutil_sample.data.anime.entity.Anime
 import java.util.*
 
 class AnimeDiffCallback(

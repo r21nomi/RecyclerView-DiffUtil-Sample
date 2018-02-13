@@ -1,4 +1,4 @@
-package com.r21nomi.recyclerview_diffutil_sample
+package com.r21nomi.recyclerview_diffutil_sample.diff_util
 
 import android.os.Handler
 import android.support.v7.util.DiffUtil
@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.r21nomi.recyclerview_diffutil_sample.R
+import com.r21nomi.recyclerview_diffutil_sample.data.anime.entity.Anime
 import java.util.*
 
 /**
