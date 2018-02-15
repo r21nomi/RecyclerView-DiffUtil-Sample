@@ -1,5 +1,6 @@
 package com.r21nomi.recyclerview_diffutil_sample.data.repos.remote
 
+import com.r21nomi.recyclerview_diffutil_sample.BuildConfig
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.entity.Repo
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -25,13 +26,22 @@ class RepoApiClient internal constructor(private val service: Service) {
                  page: Int,
                  limit: Int,
                  sort: Sort = Sort.FULL_NAME): Call<List<Repo>> {
-        return service.getRepos(user, page, limit, sort.value)
+        return service.getRepos(
+                user,
+                BuildConfig.GITHUB_CLIENT_ID,
+                BuildConfig.GITHUB_CLIENT_SECRET,
+                page,
+                limit,
+                sort.value
+        )
     }
 
     internal interface Service {
         @GET("/users/{user}/repos")
         fun getRepos(
                 @Path("user") user: String,
+                @Query("client_id") clientId: String,
+                @Query("client_secret") clientSecret: String,
                 @Query("page") page: Int,
                 @Query("per_page") prePage: Int,
                 @Query("sort") sort: String
