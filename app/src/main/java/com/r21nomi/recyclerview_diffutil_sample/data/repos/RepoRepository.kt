@@ -16,8 +16,10 @@ class RepoRepository(private val repoApiClient: RepoApiClient) {
         private val NETWORK_IO = Executors.newFixedThreadPool(5)
     }
 
-    fun getRepos(limit: Int): LiveData<PagedList<Repo>> {
-        val sourceFactory = RepoDataFactory(repoApiClient)
+    fun getRepos(limit: Int,
+                 sort: RepoApiClient.Sort = RepoApiClient.Sort.FULL_NAME
+    ): LiveData<PagedList<Repo>> {
+        val sourceFactory = RepoDataFactory(repoApiClient, sort)
 
         val config = PagedList.Config.Builder()
                 .setInitialLoadSizeHint(limit)

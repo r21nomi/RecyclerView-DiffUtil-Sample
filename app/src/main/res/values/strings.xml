@@ -4,4 +4,8 @@
     <string name="sort_by_rating">Sort by rating</string>
     <string name="update_item">Update item</string>
     <string name="remove_first_item">Remove first item</string>
+    <string name="sort_by_full_name">Sort by full name</string>
+    <string name="sort_by_created">Sort by created</string>
+    <string name="sort_by_updated">Sort by updated</string>
+    <string name="sort_by_pushed">Sort by pushed</string>
 </resources>

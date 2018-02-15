@@ -8,7 +8,8 @@ import com.r21nomi.recyclerview_diffutil_sample.data.repos.remote.RepoApiClient
  * Created by r21nomi on 2018/02/14.
  */
 class PageKeyedRepoDataSource(
-        private val repoApiClient: RepoApiClient
+        private val repoApiClient: RepoApiClient,
+        private val sort: RepoApiClient.Sort
 ) : PageKeyedDataSource<Int, Repo>() {
 
     companion object {
@@ -18,7 +19,7 @@ class PageKeyedRepoDataSource(
     override fun loadInitial(params: LoadInitialParams<Int>,
                              callback: LoadInitialCallback<Int, Repo>) {
         val response = repoApiClient
-                .getRepos(USER_NAME, 1, params.requestedLoadSize)
+                .getRepos(USER_NAME, 1, params.requestedLoadSize, sort)
                 .execute()
         response.body()?.let {
             callback.onResult(it, 1, 2)
@@ -31,7 +32,7 @@ class PageKeyedRepoDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
         val response = repoApiClient
-                .getRepos(USER_NAME, params.key, params.requestedLoadSize)
+                .getRepos(USER_NAME, params.key, params.requestedLoadSize, sort)
                 .execute()
         response.body()?.let {
             callback.onResult(it, params.key + 1)

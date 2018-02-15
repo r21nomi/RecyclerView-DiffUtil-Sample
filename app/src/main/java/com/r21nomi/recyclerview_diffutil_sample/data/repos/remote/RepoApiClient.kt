@@ -12,10 +12,20 @@ import retrofit2.http.Query
  */
 class RepoApiClient internal constructor(private val service: Service) {
 
+    enum class Sort(val value: String) {
+        FULL_NAME("full_name"),
+        CREATED("created"),
+        UPDATED("updated"),
+        PUSHED("pushed")
+    }
+
     constructor(retrofit: Retrofit) : this(retrofit.create(Service::class.java))
 
-    fun getRepos(user: String, page: Int, limit: Int): Call<List<Repo>> {
-        return service.getRepos(user, page, limit)
+    fun getRepos(user: String,
+                 page: Int,
+                 limit: Int,
+                 sort: Sort = Sort.FULL_NAME): Call<List<Repo>> {
+        return service.getRepos(user, page, limit, sort.value)
     }
 
     internal interface Service {
@@ -23,7 +33,8 @@ class RepoApiClient internal constructor(private val service: Service) {
         fun getRepos(
                 @Path("user") user: String,
                 @Query("page") page: Int,
-                @Query("per_page") prePage: Int
+                @Query("per_page") prePage: Int,
+                @Query("sort") sort: String
         ): Call<List<Repo>>
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sortByFullName"
+        android:title="@string/sort_by_full_name" />
+
+    <item
+        android:id="@+id/sortByCreated"
+        android:title="@string/sort_by_created" />
+
+    <item
+        android:id="@+id/sortByUpdated"
+        android:title="@string/sort_by_updated" />
+
+    <item
+        android:id="@+id/sortByPushed"
+        android:title="@string/sort_by_pushed" />
+
+</menu>
