@@ -35,4 +35,8 @@ class AnimeDiffCallback(
         val isSame = old == new
         return isSame
     }
+
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        return super.getChangePayload(oldItemPosition, newItemPosition)
+    }
 }

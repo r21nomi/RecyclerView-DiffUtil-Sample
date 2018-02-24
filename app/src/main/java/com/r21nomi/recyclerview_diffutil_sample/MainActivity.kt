@@ -7,6 +7,7 @@ import com.r21nomi.recyclerview_diffutil_sample.data.anime.AnimeDataSetProvider
 import com.r21nomi.recyclerview_diffutil_sample.diff_util.AnimeAdapter
 import com.r21nomi.recyclerview_diffutil_sample.diff_util.DiffUtilActivity
 import com.r21nomi.recyclerview_diffutil_sample.paging.PagingActivity
+import com.r21nomi.recyclerview_diffutil_sample.paging_room.PagingRoomActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         paging.setOnClickListener {
             startActivity(Intent(this, PagingActivity::class.java))
+        }
+
+        pagingRoom.setOnClickListener {
+            startActivity(Intent(this, PagingRoomActivity::class.java))
         }
     }
 }

@@ -24,6 +24,8 @@
         <activity android:name=".diff_util.DiffUtilActivity" />
 
         <activity android:name=".paging.PagingActivity" />
+
+        <activity android:name=".paging_room.PagingRoomActivity" />
     </application>
 
 </manifest>
