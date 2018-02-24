@@ -19,7 +19,7 @@ import kotlin.properties.Delegates
 class PagingActivity : AppCompatActivity() {
 
     companion object {
-        private const val LIMIT = 2
+        private const val LIMIT = 10
     }
 
     private var repoRepository: RepoRepository by Delegates.notNull()
