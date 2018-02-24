@@ -1,8 +1,12 @@
 package com.r21nomi.recyclerview_diffutil_sample.data.repos
 
 import android.arch.paging.PageKeyedDataSource
+import android.util.Log
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.entity.Repo
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.remote.RepoApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * Created by r21nomi on 2018/02/14.
@@ -18,12 +22,17 @@ class PageKeyedRepoDataSource(
 
     override fun loadInitial(params: LoadInitialParams<Int>,
                              callback: LoadInitialCallback<Int, Repo>) {
-        val response = repoApiClient
+        repoApiClient
                 .getRepos(USER_NAME, 1, params.requestedLoadSize, sort)
-                .execute()
-        response.body()?.let {
-            callback.onResult(it, 1, 2)
-        }
+                .enqueue(object : Callback<List<Repo>> {
+                    override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
+                        callback.onResult(response.body() ?: return, 1, 2)
+                    }
+
+                    override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
+                        Log.e(this.javaClass.name, t.message)
+                    }
+                })
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
@@ -31,11 +40,16 @@ class PageKeyedRepoDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
-        val response = repoApiClient
+        repoApiClient
                 .getRepos(USER_NAME, params.key, params.requestedLoadSize, sort)
-                .execute()
-        response.body()?.let {
-            callback.onResult(it, params.key + 1)
-        }
+                .enqueue(object : Callback<List<Repo>> {
+                    override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
+                        callback.onResult(response.body() ?: return, params.key + 1)
+                    }
+
+                    override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
+                        Log.e(this.javaClass.name, t.message)
+                    }
+                })
     }
 }

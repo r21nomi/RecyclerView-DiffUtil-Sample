@@ -15,7 +15,8 @@ import java.util.*
 /**
  * Created by r21nomi on 2018/02/11.
  */
-class AnimeAdapter(initialDataSet: MutableList<Anime>) : RecyclerView.Adapter<AnimeAdapter.ViewHolder>() {
+class AnimeAdapter(initialDataSet: MutableList<Anime>,
+                   private val itemClickFunc: (Anime, Int) -> Unit) : RecyclerView.Adapter<AnimeAdapter.ViewHolder>() {
 
     private val dataSet: MutableList<Anime> = initialDataSet
     private val pendingUpdates: ArrayDeque<List<Anime>> = ArrayDeque()
@@ -36,6 +37,9 @@ class AnimeAdapter(initialDataSet: MutableList<Anime>) : RecyclerView.Adapter<An
         holder.run {
             title.text = "${data.id}: ${data.title}"
             rating.text = data.rating.toString()
+            itemView.setOnClickListener {
+                itemClickFunc(data, position)
+            }
         }
 
         Log.d(this.javaClass.name, "onBindViewHolder - position: $position, id: ${data.id}, title: ${data.title}")
@@ -47,6 +51,11 @@ class AnimeAdapter(initialDataSet: MutableList<Anime>) : RecyclerView.Adapter<An
 
     fun getDataSet(): List<Anime> {
         return if (pendingUpdates.isNotEmpty()) pendingUpdates.peekLast() else dataSet
+    }
+
+    fun setDataSet(dataSet: List<Anime>) {
+        this.dataSet.clear()
+        this.dataSet.addAll(dataSet)
     }
 
     /**

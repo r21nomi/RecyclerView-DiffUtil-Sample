@@ -7,7 +7,7 @@ import com.r21nomi.recyclerview_diffutil_sample.data.anime.entity.Anime
  */
 object AnimeDataSetProvider {
 
-    private val dataSet: List<Anime> = listOf(
+    val dataSet: List<Anime> = listOf(
             Anime(1, "宇宙よりも遠い場所", 80),
             Anime(2, "だがしかし2", 40),
             Anime(3, "ダーリン・イン・ザ・フランキス", 90),
@@ -20,7 +20,12 @@ object AnimeDataSetProvider {
             Anime(10, "ゆるキャン△", 60),
             Anime(11, "ラーメン大好き小泉さん", 80),
             Anime(12, "りゅうおうのおしごと！", 60),
-            Anime(13, "恋は雨上がりのように", 50)
+            Anime(13, "恋は雨上がりのように", 50),
+            Anime(14, "citrus", 35),
+            Anime(15, "デスマーチからはじまる異世界狂想曲", 45),
+            Anime(16, "博多豚骨ラーメンズ", 40),
+            Anime(17, "ミイラの飼い方", 45),
+            Anime(18, "メルヘン・メドヘン", 30)
     )
 
     fun get(): List<Anime> {

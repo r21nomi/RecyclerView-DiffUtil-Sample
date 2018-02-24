@@ -15,7 +15,18 @@ import kotlinx.android.synthetic.main.activity_diff_util.*
  */
 class DiffUtilActivity : AppCompatActivity() {
 
-    private val animeAdapter = AnimeAdapter(AnimeDataSetProvider.get().toMutableList())
+    private val itemClickFunc: (Anime, Int) -> Unit = { _, position ->
+        val firstItemId = animeAdapter.getOriginalDataSet()[position].id
+        val newList = animeAdapter.getDataSet().filter {
+            it.id != firstItemId
+        }
+        animeAdapter.setDataSet(newList)
+        animeAdapter.notifyDataSetChanged()
+        animeAdapter.notifyItemRemoved(position)
+        animeAdapter.notifyItemRangeChanged(position, animeAdapter.itemCount - position)
+    }
+
+    private val animeAdapter = AnimeAdapter(AnimeDataSetProvider.get().toMutableList(), itemClickFunc)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
