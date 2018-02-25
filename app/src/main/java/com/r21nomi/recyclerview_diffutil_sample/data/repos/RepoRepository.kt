@@ -22,9 +22,8 @@ class RepoRepository(private val repoApiClient: RepoApiClient) {
         val sourceFactory = RepoDataFactory(repoApiClient, sort)
 
         val config = PagedList.Config.Builder()
-                .setInitialLoadSizeHint(limit * 2)
+                .setInitialLoadSizeHint(limit)
                 .setPageSize(limit)
-//                .setPrefetchDistance(limit / 2)
                 .build()
 
         return LivePagedListBuilder(sourceFactory, config)

@@ -51,7 +51,7 @@ class PagingActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.sortByFullName -> {
-                repoAdapter.setList(null)
+//                repoAdapter.setList(null)
                 repoRepository.getRepos(LIMIT, RepoApiClient.Sort.FULL_NAME)
                         .observe(this, Observer { pagedList ->
                             repoAdapter.setList(pagedList)
@@ -59,7 +59,7 @@ class PagingActivity : AppCompatActivity() {
                 true
             }
             R.id.sortByCreated -> {
-                repoAdapter.setList(null)
+//                repoAdapter.setList(null)
                 repoRepository.getRepos(LIMIT, RepoApiClient.Sort.CREATED)
                         .observe(this, Observer { pagedList ->
                             repoAdapter.setList(pagedList)
@@ -67,7 +67,7 @@ class PagingActivity : AppCompatActivity() {
                 true
             }
             R.id.sortByUpdated -> {
-                repoAdapter.setList(null)
+//                repoAdapter.setList(null)
                 repoRepository.getRepos(LIMIT, RepoApiClient.Sort.UPDATED)
                         .observe(this, Observer { pagedList ->
                             repoAdapter.setList(pagedList)
@@ -75,7 +75,7 @@ class PagingActivity : AppCompatActivity() {
                 true
             }
             R.id.sortByPushed -> {
-                repoAdapter.setList(null)
+//                repoAdapter.setList(null)
                 repoRepository.getRepos(LIMIT, RepoApiClient.Sort.PUSHED)
                         .observe(this, Observer { pagedList ->
                             repoAdapter.setList(pagedList)

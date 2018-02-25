@@ -1,12 +1,8 @@
 package com.r21nomi.recyclerview_diffutil_sample.data.repos
 
 import android.arch.paging.PageKeyedDataSource
-import android.util.Log
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.entity.Repo
 import com.r21nomi.recyclerview_diffutil_sample.data.repos.remote.RepoApiClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * Created by r21nomi on 2018/02/14.
@@ -22,17 +18,14 @@ class PageKeyedRepoDataSource(
 
     override fun loadInitial(params: LoadInitialParams<Int>,
                              callback: LoadInitialCallback<Int, Repo>) {
-        repoApiClient
+        val response = repoApiClient
                 .getRepos(USER_NAME, 1, params.requestedLoadSize, sort)
-                .enqueue(object : Callback<List<Repo>> {
-                    override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-                        callback.onResult(response.body() ?: return, 1, 2)
-                    }
-
-                    override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-                        Log.e(this.javaClass.name, t.message)
-                    }
-                })
+                // Do not use enqueue() here since all items are redrawn after sorting.
+                // This is because LoadInitialCallback.onResult is called on main thread if using enqueue().
+                .execute()
+        response.body()?.let {
+            callback.onResult(it, null, 2)
+        }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
@@ -40,16 +33,11 @@ class PageKeyedRepoDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
-        repoApiClient
+        val response = repoApiClient
                 .getRepos(USER_NAME, params.key, params.requestedLoadSize, sort)
-                .enqueue(object : Callback<List<Repo>> {
-                    override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-                        callback.onResult(response.body() ?: return, params.key + 1)
-                    }
-
-                    override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-                        Log.e(this.javaClass.name, t.message)
-                    }
-                })
+                .execute()
+        response.body()?.let {
+            callback.onResult(it, params.key + 1)
+        }
     }
 }
