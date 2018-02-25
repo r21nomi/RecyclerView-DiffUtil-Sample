@@ -21,7 +21,6 @@ class DiffUtilActivity : AppCompatActivity() {
             it.id != firstItemId
         }
         animeAdapter.setDataSet(newList)
-        animeAdapter.notifyDataSetChanged()
         animeAdapter.notifyItemRemoved(position)
         animeAdapter.notifyItemRangeChanged(position, animeAdapter.itemCount - position)
     }
